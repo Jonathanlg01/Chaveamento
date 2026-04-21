@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Tournament {
+  id           String   @id @default(uuid())
+  title        String
+  size         Int
+  rounds       String   // JSON stringified
+  participants String   // JSON stringified
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
