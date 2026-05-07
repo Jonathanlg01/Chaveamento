@@ -1,11 +1,11 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { loginAction } from "@/app/actions/auth";
+import { registerAction } from "@/app/actions/auth";
 import Link from "next/link";
 
-export default function LoginPage() {
-  const [state, action, isPending] = useActionState(loginAction, null);
+export default function RegisterPage() {
+  const [state, action, isPending] = useActionState(registerAction, null);
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -23,14 +23,14 @@ export default function LoginPage() {
           <div className="mb-10 text-center">
             <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 shadow-lg shadow-sky-500/30">
               <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
               </svg>
             </div>
             <h1 className="text-3xl font-black tracking-tight text-white">
-              Chaveamento<span className="text-sky-400">.Pro</span>
+              Criar <span className="text-sky-400">Conta</span>
             </h1>
             <p className="mt-2 text-sm font-medium text-slate-400">
-              Gerencie seus torneios como um profissional
+              Junte-se à plataforma profissional de torneios
             </p>
           </div>
 
@@ -38,10 +38,28 @@ export default function LoginPage() {
           <form action={action} className="space-y-6">
             <div className="space-y-4">
               <div>
-                <label
-                  htmlFor="email"
-                  className="mb-2 block text-xs font-bold uppercase tracking-widest text-slate-400"
-                >
+                <label htmlFor="name" className="mb-2 block text-xs font-bold uppercase tracking-widest text-slate-400">
+                  Nome
+                </label>
+                <div className="relative">
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    placeholder="Seu nome"
+                    className="w-full rounded-xl border-2 border-white/5 bg-black/20 px-4 py-3.5 pl-11 text-sm font-semibold text-white outline-none transition-all placeholder:text-slate-600 focus:border-sky-500 focus:bg-sky-950/20"
+                  />
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="email" className="mb-2 block text-xs font-bold uppercase tracking-widest text-slate-400">
                   E-mail
                 </label>
                 <div className="relative">
@@ -62,10 +80,7 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label
-                  htmlFor="password"
-                  className="mb-2 block text-xs font-bold uppercase tracking-widest text-slate-400"
-                >
+                <label htmlFor="password" className="mb-2 block text-xs font-bold uppercase tracking-widest text-slate-400">
                   Senha
                 </label>
                 <div className="relative">
@@ -100,9 +115,30 @@ export default function LoginPage() {
                   </button>
                 </div>
               </div>
+
+              <div>
+                <label htmlFor="confirmPassword" className="mb-2 block text-xs font-bold uppercase tracking-widest text-slate-400">
+                  Confirmar Senha
+                </label>
+                <div className="relative">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showPassword ? "text" : "password"}
+                    required
+                    placeholder="••••••••"
+                    className="w-full rounded-xl border-2 border-white/5 bg-black/20 px-4 py-3.5 pl-11 pr-11 text-sm font-semibold text-white outline-none transition-all placeholder:text-slate-600 focus:border-sky-500 focus:bg-sky-950/20"
+                  />
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Mensagem de erro real */}
+            {/* Mensagem de erro */}
             {state?.error && (
               <div className="flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3">
                 <svg className="h-4 w-4 shrink-0 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -123,22 +159,19 @@ export default function LoginPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Entrando...
+                  Criando conta...
                 </div>
               ) : (
-                "Entrar no Sistema"
+                "Criar Conta"
               )}
             </button>
           </form>
 
-          <div className="mt-8 flex flex-col items-center gap-3">
+          <div className="mt-8 text-center">
             <p className="text-xs font-medium text-slate-600">
-              Acesso restrito a usuários autorizados
-            </p>
-            <p className="text-xs font-medium text-slate-500">
-              Não tem uma conta?{" "}
-              <Link href="/register" className="text-sky-400 font-semibold hover:text-sky-300 transition-colors">
-                Criar agora
+              Já tem uma conta?{" "}
+              <Link href="/" className="text-sky-400 hover:text-sky-300 transition-colors">
+                Faça login
               </Link>
             </p>
           </div>

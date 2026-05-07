@@ -1,5 +1,6 @@
 import { BracketBuilder } from "@/components/BracketBuilder";
 
-export default function TournamentPage({ params }: { params: { id: string } }) {
-  return <BracketBuilder tournamentId={params.id} />;
+export default async function TournamentPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  return <BracketBuilder tournamentId={resolvedParams.id} />;
 }

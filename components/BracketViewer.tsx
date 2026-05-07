@@ -105,7 +105,7 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
                   style={{ height: `${matchHeight}px` }}
                 >
                   <div className="w-full relative z-10">
-                    <div className="mb-1.5 ml-1 flex items-center gap-1.5 text-[11px] font-bold text-indigo-600 uppercase tracking-wider">
+                    <div className="mb-1.5 ml-1 flex items-center gap-1.5 text-[11px] font-bold text-sky-400 uppercase tracking-wider">
                       {roundLabel === "Final" && (
                         <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19,2H5C3.89,2 3,2.89 3,4V6C3,8.21 4.79,10 7,10C7.54,10 8.04,9.88 8.5,9.66C9.33,11.53 11,13.2 11,13.8V19H7V21H17V19H13V13.8C13,13.2 14.67,11.53 15.5,9.66C15.96,9.88 16.46,10 17,10C19.21,10 21,8.21 21,6V4C21,2.89 20.11,2 19,2M7,8C5.9,8 5,7.1 5,6V4H7V8M19,6C19,7.1 18.1,8 17,8V4H19V6Z" /></svg>
                       )}
@@ -114,26 +114,26 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
 
                     <button 
                       onClick={() => setSelectedMatch({ roundIndex, matchIndex, match })}
-                      className="w-full relative flex shadow-md rounded-xl overflow-hidden bg-white ring-1 ring-slate-200 hover:ring-sky-400 hover:shadow-sky-100 transition-all text-left"
+                      className="w-full relative flex shadow-2xl rounded-xl overflow-hidden bg-white/5 ring-1 ring-white/10 hover:ring-sky-500/50 hover:bg-white/10 transition-all text-left backdrop-blur-sm group"
                     >
                       <div className="flex-1 flex flex-col">
-                        <div className={`w-full px-3 py-2.5 text-sm font-medium border-b border-slate-100 flex justify-between items-center ${
-                          player1Selected ? 'bg-orange-100/60 text-slate-900' : 'bg-slate-100/60 text-slate-700'
+                        <div className={`w-full px-3 py-2.5 text-sm font-medium border-b border-white/5 flex justify-between items-center transition-colors ${
+                          player1Selected ? 'bg-sky-500/20 text-sky-300' : 'bg-white/5 text-slate-300'
                         }`}>
                           <span className="truncate">{match.player1 || <span className="italic text-slate-400">TBD</span>}</span>
                           {match.player1 === "BYE" && <span className="ml-2 rounded bg-slate-200/80 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">BYE</span>}
                         </div>
 
-                        <div className={`w-full px-3 py-2.5 text-sm font-medium flex justify-between items-center ${
-                          player2Selected ? 'bg-orange-100/60 text-slate-900' : 'bg-slate-100/60 text-slate-700'
+                        <div className={`w-full px-3 py-2.5 text-sm font-medium flex justify-between items-center transition-colors ${
+                          player2Selected ? 'bg-sky-500/20 text-sky-300' : 'bg-white/5 text-slate-300'
                         }`}>
                           <span className="truncate">{match.player2 || <span className="italic text-slate-400">TBD</span>}</span>
                           {match.player2 === "BYE" && <span className="ml-2 rounded bg-slate-200/80 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">BYE</span>}
                         </div>
                       </div>
 
-                      <div className="w-10 bg-slate-950 flex flex-col text-white font-bold text-sm">
-                        <div className="flex-1 flex items-center justify-center border-b border-slate-800">
+                      <div className="w-10 bg-slate-900 flex flex-col text-white font-bold text-sm">
+                        <div className="flex-1 flex items-center justify-center border-b border-white/5">
                           {match.score1 !== undefined ? match.score1 : '-'}
                         </div>
                         <div className="flex-1 flex items-center justify-center">
@@ -141,7 +141,7 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
                         </div>
                       </div>
 
-                      <div className="absolute top-1/2 left-[calc(100%-2.5rem)] -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm text-[8px] font-black text-slate-300 ring-1 ring-slate-100 z-10">
+                      <div className="absolute top-1/2 left-[calc(100%-2.5rem)] -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-slate-800 rounded-full flex items-center justify-center shadow-lg text-[8px] font-black text-slate-500 ring-1 ring-white/10 z-10">
                         VS
                       </div>
                     </button>
@@ -149,18 +149,18 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
 
                   {roundIndex < rounds.length - 1 && matchIndex % 2 === 0 && (
                     <div 
-                      className="absolute left-full top-1/2 w-4 border-t-2 border-r-2 border-slate-300 rounded-tr-xl"
+                      className="absolute left-full top-1/2 w-4 border-t-2 border-r-2 border-white/20 rounded-tr-xl"
                       style={{ height: `${lineHeight}px` }}
                     />
                   )}
                   {roundIndex < rounds.length - 1 && matchIndex % 2 === 1 && (
                     <div 
-                      className="absolute left-full bottom-1/2 w-4 border-b-2 border-r-2 border-slate-300 rounded-br-xl"
+                      className="absolute left-full bottom-1/2 w-4 border-b-2 border-r-2 border-white/20 rounded-br-xl"
                       style={{ height: `${lineHeight}px` }}
                     />
                   )}
                   {roundIndex > 0 && (
-                    <div className="absolute right-full top-1/2 w-4 border-t-2 border-slate-300" />
+                    <div className="absolute right-full top-1/2 w-4 border-t-2 border-white/20" />
                   )}
                 </div>
               );
@@ -171,9 +171,9 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
 
       {/* Match Modal */}
       {selectedMatch && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden ring-1 ring-slate-200 animate-in zoom-in-95 duration-200">
-            <div className="bg-slate-900 p-6 text-white">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="w-full max-w-md bg-slate-900 rounded-3xl shadow-2xl overflow-hidden ring-1 ring-white/10 animate-in zoom-in-95 duration-200">
+            <div className="bg-slate-950/50 p-6 text-white border-b border-white/5">
               <div className="flex justify-between items-center">
                 <div>
                   <h3 className="text-xl font-black tracking-tight text-sky-400">Editar Partida</h3>
@@ -198,7 +198,7 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
                       disabled={selectedMatch.roundIndex > 0 || selectedMatch.match.player1 === "BYE"}
                       value={modalData.player1}
                       onChange={e => setModalData({...modalData, player1: e.target.value})}
-                      className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-sky-500 transition-all disabled:opacity-60"
+                      className="w-full bg-white/5 border-2 border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-white outline-none focus:border-sky-500 transition-all disabled:opacity-40"
                     />
                   </div>
                   <div className="w-20">
@@ -210,7 +210,7 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
                       placeholder="0"
                       value={modalData.score1}
                       onChange={e => setModalData({...modalData, score1: e.target.value.replace(/\D/g, '')})}
-                      className="w-full bg-slate-900 border-2 border-slate-900 rounded-xl px-2 py-3 text-center text-lg font-black text-white outline-none focus:ring-4 focus:ring-sky-500/20 transition-all"
+                      className="w-full bg-slate-950 border-2 border-white/10 rounded-xl px-2 py-3 text-center text-lg font-black text-white outline-none focus:ring-4 focus:ring-sky-500/20 transition-all"
                     />
                   </div>
                 </div>
@@ -228,7 +228,7 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
                       disabled={selectedMatch.roundIndex > 0 || selectedMatch.match.player2 === "BYE"}
                       value={modalData.player2}
                       onChange={e => setModalData({...modalData, player2: e.target.value})}
-                      className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-sky-500 transition-all disabled:opacity-60"
+                      className="w-full bg-white/5 border-2 border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-white outline-none focus:border-sky-500 transition-all disabled:opacity-40"
                     />
                   </div>
                   <div className="w-20">
@@ -240,7 +240,7 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
                       placeholder="0"
                       value={modalData.score2}
                       onChange={e => setModalData({...modalData, score2: e.target.value.replace(/\D/g, '')})}
-                      className="w-full bg-slate-900 border-2 border-slate-900 rounded-xl px-2 py-3 text-center text-lg font-black text-white outline-none focus:ring-4 focus:ring-sky-500/20 transition-all"
+                      className="w-full bg-slate-950 border-2 border-white/10 rounded-xl px-2 py-3 text-center text-lg font-black text-white outline-none focus:ring-4 focus:ring-sky-500/20 transition-all"
                     />
                   </div>
                 </div>
@@ -249,7 +249,7 @@ export function BracketViewer({ rounds, onSelectWinner, onShowToast }: BracketVi
               <div className="pt-4 flex gap-3">
                 <button 
                   onClick={() => setSelectedMatch(null)}
-                  className="flex-1 px-6 py-3.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all"
+                  className="flex-1 px-6 py-3.5 rounded-xl text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white transition-all"
                 >
                   Cancelar
                 </button>

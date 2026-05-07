@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getTournamentsAction, deleteTournamentAction } from "@/app/actions/tournament";
+import { logoutAction } from "@/app/actions/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -64,15 +65,17 @@ export default function Dashboard() {
               </svg>
               Novo Campeonato
             </button>
-            <Link 
-              href="/"
-              className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-white/10"
-            >
-              <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              Sair
-            </Link>
+            <form action={logoutAction}>
+              <button
+                type="submit"
+                className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-white/10"
+              >
+                <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Sair
+              </button>
+            </form>
           </div>
         </header>
 
