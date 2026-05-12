@@ -24,8 +24,8 @@ model Tournament {
   size         Int
   rounds       String   // JSON stringified
   participants String   // JSON stringified
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id])
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
