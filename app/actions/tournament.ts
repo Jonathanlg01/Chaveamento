@@ -2,10 +2,15 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { getSession } from "@/lib/session";
 
 export async function getTournamentsAction() {
   try {
+    const session = await getSession();
+    if (!session?.userId) return [];
+
     const tournaments = await prisma.tournament.findMany({
+      where: { userId: session.userId },
       orderBy: { createdAt: "desc" },
     });
     
@@ -25,11 +30,14 @@ export async function getTournamentsAction() {
 
 export async function getTournamentByIdAction(id: string) {
   try {
+    const session = await getSession();
+    if (!session?.userId) return null;
+
     const tournament = await prisma.tournament.findUnique({
       where: { id },
     });
     
-    if (!tournament) return null;
+    if (!tournament || tournament.userId !== session.userId) return null;
     
     return {
       id: tournament.id,
@@ -53,6 +61,17 @@ export async function saveTournamentAction(data: {
   participants: string[];
 }) {
   try {
+    const session = await getSession();
+    if (!session?.userId) throw new Error("Não autorizado");
+
+    const existing = await prisma.tournament.findUnique({
+      where: { id: data.id }
+    });
+
+    if (existing && existing.userId !== session.userId) {
+      throw new Error("Não autorizado");
+    }
+
     await prisma.tournament.upsert({
       where: { id: data.id },
       update: {
@@ -67,6 +86,7 @@ export async function saveTournamentAction(data: {
         size: data.size,
         rounds: JSON.stringify(data.rounds),
         participants: JSON.stringify(data.participants),
+        userId: session.userId,
       },
     });
     
@@ -80,6 +100,17 @@ export async function saveTournamentAction(data: {
 
 export async function deleteTournamentAction(id: string) {
   try {
+    const session = await getSession();
+    if (!session?.userId) return { success: false, error: "Não autorizado" };
+
+    const tournament = await prisma.tournament.findUnique({
+      where: { id }
+    });
+
+    if (!tournament || tournament.userId !== session.userId) {
+      return { success: false, error: "Não autorizado" };
+    }
+
     await prisma.tournament.delete({
       where: { id },
     });
